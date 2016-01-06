@@ -99,7 +99,7 @@ namespace Hpdi.Vss2Git
         public void ExportToVcs(string repoPath, DateTime? continueAfter)
         {
             this.continueAfter = continueAfter;
-            workQueue.AddLast(delegate(object work)
+            workQueue.AddLast(delegate (object work)
             {
                 var stopwatch = Stopwatch.StartNew();
 
@@ -118,16 +118,19 @@ namespace Hpdi.Vss2Git
 
                 string vcs = vcsWrapper.GetVcs();
 
-                while (!vcsWrapper.FindExecutable())
+                if (vcs != null)
                 {
-                    var button = MessageBox.Show(vcs + " not found in PATH. " +
-                        "If you need to modify your PATH variable, please " +
-                        "restart the program for the changes to take effect.",
-                        "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                    if (button == DialogResult.Cancel)
+                    while (!vcsWrapper.FindExecutable())
                     {
-                        workQueue.Abort();
-                        return;
+                        var button = MessageBox.Show(vcs + " not found in PATH. " +
+                                                     "If you need to modify your PATH variable, please " +
+                                                     "restart the program for the changes to take effect.",
+                            "Error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                        if (button == DialogResult.Cancel)
+                        {
+                            workQueue.Abort();
+                            return;
+                        }
                     }
                 }
 
@@ -926,7 +929,8 @@ namespace Hpdi.Vss2Git
             // propagate exceptions here (e.g. disk full) to abort/retry/ignore
             using (contents)
             {
-                WriteStream(contents, destPath);
+                if (!WriteStream(contents, destPath))
+                    return false;
             }
 
             // try to use the first revision (for this branch) as the create time,
@@ -947,15 +951,53 @@ namespace Hpdi.Vss2Git
             return true;
         }
 
-        private void WriteStream(Stream inputStream, string path)
+        private bool WriteStream(Stream inputStream, string path)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+            // check whether the new contents actually differs from what's on disk
+
+            if (File.Exists(path) && inputStream.Length == new FileInfo(path).Length)
+            {
+                using (var outputStream = File.OpenRead(path))
+                {
+                    byte[] inBuffer = new byte[4096];
+                    byte[] outBuffer = new byte[4096];
+
+                    bool differs = false;
+
+                    while (!differs)
+                    {
+                        int read = inputStream.Read(inBuffer, 0, inBuffer.Length);
+                        if (read <= 0)
+                            break;
+
+                        outputStream.Read(outBuffer, 0, outBuffer.Length);
+
+                        for (int i = 0; i < read; i++)
+                        {
+                            if (inBuffer[i] != outBuffer[i])
+                            {
+                                differs = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!differs)
+                         return false;
+
+                    inputStream.Seek(0, SeekOrigin.Begin);
+                }
+            }
 
             using (var outputStream = new FileStream(
                 path, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 streamCopier.Copy(inputStream, outputStream);
             }
+
+            return true;
         }
 
         private delegate void RenameDelegate(string sourcePath, string destPath);

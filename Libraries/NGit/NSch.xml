@@ -1,0 +1,1204 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NSch</name>
+    </assembly>
+    <members>
+        <member name="M:NSch.Channel.Init">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Channel.Connect">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Channel.Connect(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Channel.Start">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Channel.GetInputStream">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.GetExtInputStream">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.GetOutputStream">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.Write(System.Byte[])">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.Write(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.Write_ext(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.SendSignal(System.String)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Channel.GetSession">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Channel.SendOpenConfirmation">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Channel.SendChannelOpen">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Channel._OutputStream_220.Init">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel._OutputStream_220.Write(System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel._OutputStream_220.Write(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel._OutputStream_220.Flush">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel._OutputStream_220.Close">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.MyPipedInputStream.#ctor(NSch.Channel)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.MyPipedInputStream.#ctor(NSch.Channel,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.MyPipedInputStream.#ctor(NSch.Channel,Sharpen.PipedOutputStream)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.MyPipedInputStream.#ctor(NSch.Channel,Sharpen.PipedOutputStream,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.MyPipedInputStream.UpdateReadSide">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.PassiveInputStream.#ctor(NSch.Channel,Sharpen.PipedOutputStream,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.PassiveInputStream.#ctor(NSch.Channel,Sharpen.PipedOutputStream)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.PassiveInputStream.Close">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Channel.PassiveOutputStream.#ctor(NSch.Channel,Sharpen.PipedInputStream)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelAgentForwarding.Write(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelDirectTCPIP.Connect">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSession.SetAgentForwarding(System.Boolean)">
+            <summary>Enable the agent forwarding.</summary>
+            <remarks>Enable the agent forwarding.</remarks>
+            <param name="enable"></param>
+        </member>
+        <member name="M:NSch.ChannelSession.SetXForwarding(System.Boolean)">
+            <summary>Enable the X11 forwarding.</summary>
+            <remarks>Enable the X11 forwarding.</remarks>
+            <param name="enable"></param>
+            <seealso cref="!:RFC4254">6.3.1. Requesting X11 Forwarding</seealso>
+        </member>
+        <member name="M:NSch.ChannelSession.SetEnv(System.Collections.Hashtable)">
+            <seealso cref="M:NSch.ChannelSession.SetEnv(System.String,System.String)">SetEnv(string, string)</seealso>
+            <seealso cref="M:NSch.ChannelSession.SetEnv(System.Byte[],System.Byte[])">SetEnv(byte[], byte[])</seealso>
+        </member>
+        <member name="M:NSch.ChannelSession.SetEnv(System.String,System.String)">
+            <summary>Set the environment variable.</summary>
+            <remarks>
+            Set the environment variable.
+            If <code>name</code> and <code>value</code> are needed to be passed
+            to the remote in your faivorite encoding,use
+            <see cref="M:NSch.ChannelSession.SetEnv(System.Byte[],System.Byte[])">SetEnv(byte[], byte[])</see>
+            .
+            </remarks>
+            <param name="name">A name for environment variable.</param>
+            <param name="value">A value for environment variable.</param>
+            <seealso cref="!:RFC4254">6.4 Environment Variable Passing</seealso>
+        </member>
+        <member name="M:NSch.ChannelSession.SetEnv(System.Byte[],System.Byte[])">
+            <summary>Set the environment variable.</summary>
+            <remarks>Set the environment variable.</remarks>
+            <param name="name">A name of environment variable.</param>
+            <param name="value">A value of environment variable.</param>
+            <seealso cref="M:NSch.ChannelSession.SetEnv(System.String,System.String)">SetEnv(string, string)</seealso>
+            <seealso cref="!:RFC4254">6.4 Environment Variable Passing</seealso>
+        </member>
+        <member name="M:NSch.ChannelSession.SetPty(System.Boolean)">
+            <summary>Allocate a Pseudo-Terminal.</summary>
+            <remarks>Allocate a Pseudo-Terminal.</remarks>
+            <param name="enable"></param>
+            <seealso cref="!:RFC4254">6.2. Requesting a Pseudo-Terminal</seealso>
+        </member>
+        <member name="M:NSch.ChannelSession.SetTerminalMode(System.Byte[])">
+            <summary>Set the terminal mode.</summary>
+            <remarks>Set the terminal mode.</remarks>
+            <param name="terminal_mode"></param>
+        </member>
+        <member name="M:NSch.ChannelSession.SetPtySize(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>Change the window dimension interactively.</summary>
+            <remarks>Change the window dimension interactively.</remarks>
+            <param name="col">terminal width, columns</param>
+            <param name="row">terminal height, rows</param>
+            <param name="wp">terminal width, pixels</param>
+            <param name="hp">terminal height, pixels</param>
+            <seealso cref="!:RFC4254">6.7. Window Dimension Change Message</seealso>
+        </member>
+        <member name="M:NSch.ChannelSession.SetPtyType(System.String)">
+            <summary>Set the terminal type.</summary>
+            <remarks>
+            Set the terminal type.
+            This method is not effective after Channel#connect().
+            </remarks>
+            <param name="ttype">terminal type(for example, "vt100")</param>
+            <seealso cref="M:NSch.ChannelSession.SetPtyType(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">SetPtyType(string, int, int, int, int)
+            	</seealso>
+        </member>
+        <member name="M:NSch.ChannelSession.SetPtyType(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>Set the terminal type.</summary>
+            <remarks>
+            Set the terminal type.
+            This method is not effective after Channel#connect().
+            </remarks>
+            <param name="ttype">terminal type(for example, "vt100")</param>
+            <param name="col">terminal width, columns</param>
+            <param name="row">terminal height, rows</param>
+            <param name="wp">terminal width, pixels</param>
+            <param name="hp">terminal height, pixels</param>
+        </member>
+        <member name="M:NSch.ChannelSession.SendRequests">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelExec.Start">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelExec.Init">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelExec.GetErrStream">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelForwardedTCPIP.AddPort(NSch.Session,System.String,System.Int32,System.String,System.Int32,NSch.SocketFactory)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelForwardedTCPIP.AddPort(NSch.Session,System.String,System.Int32,System.String,System.Object[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SetBulkRequests(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Start">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Lcd(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Cd(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String,System.String,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String,System.String,NSch.SftpProgressMonitor)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String,System.String,NSch.SftpProgressMonitor,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(Sharpen.InputStream,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(Sharpen.InputStream,System.String,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(Sharpen.InputStream,System.String,NSch.SftpProgressMonitor)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(Sharpen.InputStream,System.String,NSch.SftpProgressMonitor,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._put(Sharpen.InputStream,System.String,NSch.SftpProgressMonitor,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String,NSch.SftpProgressMonitor,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Put(System.String,NSch.SftpProgressMonitor,System.Int32,System.Int64)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,System.String,NSch.SftpProgressMonitor)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,System.String,NSch.SftpProgressMonitor,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,Sharpen.OutputStream)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,Sharpen.OutputStream,NSch.SftpProgressMonitor)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,Sharpen.OutputStream,NSch.SftpProgressMonitor,System.Int32,System.Int64)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._get(System.String,Sharpen.OutputStream,NSch.SftpProgressMonitor,System.Int32,System.Int64)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,NSch.SftpProgressMonitor)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,NSch.SftpProgressMonitor,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Get(System.String,NSch.SftpProgressMonitor,System.Int64)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Ls(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Readlink(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Symlink(System.String,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Rename(System.String,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Rm(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Chgrp(System.Int32,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Chown(System.Int32,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Chmod(System.Int32,System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SetMtime(System.String,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Rmdir(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Mkdir(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Stat(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._stat(System.Byte[])">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._stat(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Lstat(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._lstat(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._realpath(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SetStat(System.String,NSch.SftpATTRS)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._setStat(System.String,NSch.SftpATTRS)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Pwd">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.GetHome">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.GetCwd">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Read(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.CheckStatus(System.Int32[],NSch.ChannelHeader)">
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._sendCLOSE(System.Byte[],NSch.ChannelHeader)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendINIT">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendREALPATH(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendSTAT(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendLSTAT(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendFSTAT(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendSETSTAT(System.Byte[],NSch.SftpATTRS)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendREMOVE(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendMKDIR(System.Byte[],NSch.SftpATTRS)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendRMDIR(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendSYMLINK(System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendREADLINK(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendOPENDIR(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendREADDIR(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendRENAME(System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendCLOSE(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendOPENR(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendOPENW(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendOPENA(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendOPEN(System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendPacketPath(System.Byte,System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendPacketPath(System.Byte,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendWRITE(System.Byte[],System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendREAD(System.Byte[],System.Int64,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SendREAD(System.Byte[],System.Int64,System.Int32,NSch.ChannelSftp.RequestQueue)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.PutHEAD(NSch.Buffer,System.Byte,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.PutHEAD(System.Byte,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Glob_remote(System.String)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Glob_local(System.String)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.ThrowStatusError(NSch.Buffer,System.Int32)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Fill(NSch.Buffer,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Fill(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Skip(System.Int64)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Header(NSch.Buffer,NSch.ChannelHeader)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.RemoteAbsolutePath(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.IsUnique(System.String)">
+            <summary>
+            This method will check if the given string can be expanded to the
+            unique string.
+            </summary>
+            <remarks>
+            This method will check if the given string can be expanded to the
+            unique string.  If it can be expanded to mutiple files, SftpException
+            will be thrown.
+            </remarks>
+            <returns>the returned string is unquoted.</returns>
+            <exception cref="T:NSch.SftpException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.GetServerVersion">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.SetFilenameEncoding(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.Realpath(System.String)">
+            <exception cref="T:NSch.SftpException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._OutputStream_686.Write(System.Byte[])">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._OutputStream_686.Write(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._OutputStream_686.Write(System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._OutputStream_686.Flush">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._OutputStream_686.Close">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.RequestQueue.Cancel(NSch.ChannelHeader,NSch.Buffer)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._InputStream_1195.Read">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._InputStream_1195.Read(System.Byte[])">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._InputStream_1195.Read(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp._InputStream_1195.Close">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSftp.LsEntry.CompareTo(System.Object)">
+            <exception cref="T:System.InvalidCastException"></exception>
+        </member>
+        <member name="M:NSch.ChannelShell.Start">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelShell.Init">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSubsystem.Start">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSubsystem.Init">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ChannelSubsystem.GetErrStream">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ChannelX11.Write(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Cipher.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Cipher.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.CipherNone.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.CipherNone.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DH.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DH.GetE">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DH.GetK">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.KeyExchange.Init(NSch.Session,System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.KeyExchange.Next(NSch.Buffer)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DHG1.Init(NSch.Session,System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DHG1.Next(NSch.Buffer)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DHGEX.Init(NSch.Session,System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DHGEX.Next(NSch.Buffer)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.GSSContext.Create(System.String,System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.GSSContext.Init(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.HASH.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.HASH.Update(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.HASH.Digest">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.HostKey.#ctor(System.String,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.HostKey.#ctor(System.String,System.Int32,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.IO.Put(NSch.Packet)">
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.Net.Sockets.SocketException"></exception>
+        </member>
+        <member name="M:NSch.IO.Put(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.IO.Put_ext(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.IO.GetByte">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.IO.GetByte(System.Byte[])">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.IO.GetByte(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Identity.SetPassphrase(System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.IdentityFile.NewInstance(System.String,System.String,NSch.JSch)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.IdentityFile.NewInstance(System.String,System.Byte[],System.Byte[],NSch.JSch)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.IdentityFile.#ctor(System.String,System.Byte[],System.Byte[],NSch.JSch)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.IdentityFile.SetPassphrase(System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.GetSession(System.String,System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.GetSession(System.String,System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.SetKnownHosts(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.SetKnownHosts(Sharpen.InputStream)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.AddIdentity(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.AddIdentity(System.String,System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.AddIdentity(System.String,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.AddIdentity(System.String,System.String,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.AddIdentity(System.String,System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.AddIdentity(NSch.Identity,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.RemoveIdentity(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.RemoveIdentity(NSch.Identity)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.GetIdentityNames">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.JSch.RemoveAllIdentity">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.GenKeyPair(NSch.JSch,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.GenKeyPair(NSch.JSch,System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.Generate(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.WritePublicKey(System.String,System.String)">
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.WriteSECSHPublicKey(System.String,System.String)">
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.WritePrivateKey(System.String)">
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.Load(NSch.JSch,System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KeyPair.Load(NSch.JSch,System.String,System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KeyPairDSA.Generate(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KeyPairGenDSA.Init(System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.KeyPairGenRSA.Init(System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.KeyPairRSA.Generate(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.SetKnownHosts(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.SetKnownHosts(Sharpen.InputStream)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.AddInvalidLine(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.Sync">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.Sync(System.String)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.Dump(Sharpen.OutputStream)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.CreateHashedHostKey(System.String,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.HashedHostKey.#ctor(NSch.KnownHosts,System.String,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.KnownHosts.HashedHostKey.#ctor(NSch.KnownHosts,System.String,System.Int32,System.Byte[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.MAC.Init(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.PortWatcher.GetPort(NSch.Session,System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.PortWatcher.AddPort(NSch.Session,System.String,System.Int32,System.String,System.Int32,NSch.ServerSocketFactory)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.PortWatcher.DelPort(NSch.Session,System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.PortWatcher.#ctor(NSch.Session,System.String,System.Int32,System.String,System.Int32,NSch.ServerSocketFactory)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Proxy.Connect(NSch.SocketFactory,System.String,System.Int32,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ProxyHTTP.Connect(NSch.SocketFactory,System.String,System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ProxySOCKS4.Connect(NSch.SocketFactory,System.String,System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ProxySOCKS5.Connect(NSch.SocketFactory,System.String,System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ProxySOCKS5.Fill(Sharpen.InputStream,System.Byte[],System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Request.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Request.Write(NSch.Packet)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestAgentForwarding.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestEnv.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestExec.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestPtyReq.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestSftp.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestShell.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestSignal.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestSubsystem.Request(NSch.Session,NSch.Channel,System.String,System.Boolean)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestSubsystem.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestWindowChange.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.RequestX11.DoRequest(NSch.Session,NSch.Channel)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.ServerSocketFactory.CreateServerSocket(System.Int32,System.Int32,System.Net.IPAddress)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Session.#ctor(NSch.JSch)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.Connect">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.Connect(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.Receive_kexinit(NSch.Buffer)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.Rekey">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.Send_kexinit">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.Send_newkeys">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.CheckHost(System.String,System.Int32,NSch.KeyExchange)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.OpenChannel(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.Encode(NSch.Packet)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.Read(NSch.Buffer)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.Start_discard(NSch.Buffer,NSch.Cipher,NSch.MAC,System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.Session.Receive_newkeys(NSch.Buffer,NSch.KeyExchange)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.UpdateKeys(NSch.KeyExchange)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.Write(NSch.Packet,NSch.Channel,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.Write(NSch.Packet)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session._write(NSch.Packet)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingL(System.Int32,System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingL(System.String,System.Int32,System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingL(System.String,System.Int32,System.String,System.Int32,NSch.ServerSocketFactory)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.DelPortForwardingL(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.DelPortForwardingL(System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.GetPortForwardingL">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingR(System.Int32,System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingR(System.String,System.Int32,System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingR(System.Int32,System.String,System.Int32,NSch.SocketFactory)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingR(System.String,System.Int32,System.String,System.Int32,NSch.SocketFactory)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingR(System.Int32,System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingR(System.Int32,System.String,System.Object[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwardingR(System.String,System.Int32,System.String,System.Object[])">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetPortForwarding(System.String,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.DelPortForwardingR(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.InitDeflater(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.InitInflater(System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SetTimeout(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Session.SendIgnore">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.SendKeepAliveMsg">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Session.SetServerAliveInterval(System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.SignatureDSA.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureDSA.SetPubKey(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureDSA.SetPrvKey(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureDSA.Update(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureDSA.Verify(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureDSA.Sign">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureRSA.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureRSA.SetPubKey(System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureRSA.SetPrvKey(System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureRSA.Update(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureRSA.Verify(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SignatureRSA.Sign">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.SocketFactory.CreateSocket(System.String,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:Sharpen.UnknownHostException"></exception>
+        </member>
+        <member name="M:NSch.SocketFactory.GetInputStream(System.Net.Sockets.Socket)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.SocketFactory.GetOutputStream(System.Net.Sockets.Socket)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.UserAuth.Start(NSch.Session)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.UserAuthGSSAPIWithMIC.Start(NSch.Session)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.UserAuthKeyboardInteractive.Start(NSch.Session)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.UserAuthNone.Start(NSch.Session)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.UserAuthPassword.Start(NSch.Session)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.UserAuthPublicKey.Start(NSch.Session)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Util.CreateSocket(System.String,System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES128CBC.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES128CBC.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES128CTR.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES128CTR.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES192CBC.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES192CBC.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES192CTR.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES192CTR.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES256CBC.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES256CBC.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES256CTR.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.AES256CTR.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.ARCFOUR.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.ARCFOUR.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.ARCFOUR128.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.ARCFOUR128.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.ARCFOUR256.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.ARCFOUR256.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.BlowfishCBC.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.BlowfishCBC.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.DH.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.DH.GetE">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.DH.GetK">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.HMACMD5.Init(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.HMACMD596.Init(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.HMACSHA1.Init(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.HMACSHA196.Init(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.KeyPairGenDSA.Init(System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.KeyPairGenRSA.Init(System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.MD5.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.MD5.Update(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.MD5.Digest">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SHA1.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SHA1.Update(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SHA1.Digest">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureDSA.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureDSA.SetPubKey(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureDSA.SetPrvKey(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureDSA.Sign">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureDSA.Update(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureDSA.Verify(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureRSA.Init">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureRSA.SetPubKey(System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureRSA.SetPrvKey(System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureRSA.Sign">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureRSA.Update(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.SignatureRSA.Verify(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.TripleDESCBC.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.TripleDESCBC.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.TripleDESCTR.Init(System.Int32,System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jce.TripleDESCTR.Update(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jcraft.HMAC.Init(System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.Jgss.GSSContextKrb5.Create(System.String,System.String)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.Jgss.GSSContextKrb5.Init(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:NSch.JSchException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZInputStream.Read">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZInputStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZInputStream.Skip(System.Int64)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZInputStream.GetTotalIn">
+            <summary>Returns the total number of bytes input so far.</summary>
+            <remarks>Returns the total number of bytes input so far.</remarks>
+        </member>
+        <member name="M:NSch.ZLib.ZInputStream.GetTotalOut">
+            <summary>Returns the total number of bytes output so far.</summary>
+            <remarks>Returns the total number of bytes output so far.</remarks>
+        </member>
+        <member name="M:NSch.ZLib.ZInputStream.Close">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZOutputStream.Write(System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZOutputStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZOutputStream.Finish">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZOutputStream.Close">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.ZLib.ZOutputStream.GetTotalIn">
+            <summary>Returns the total number of bytes input so far.</summary>
+            <remarks>Returns the total number of bytes input so far.</remarks>
+        </member>
+        <member name="M:NSch.ZLib.ZOutputStream.GetTotalOut">
+            <summary>Returns the total number of bytes output so far.</summary>
+            <remarks>Returns the total number of bytes output so far.</remarks>
+        </member>
+        <member name="M:NSch.ZLib.ZOutputStream.Flush">
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NSch.DHG14.Init(NSch.Session,System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:NSch.DHG14.Next(NSch.Buffer)">
+            <exception cref="T:System.Exception"></exception>
+        </member>
+    </members>
+</doc>

@@ -129,6 +129,7 @@
             // 
             // vssDirButton
             // 
+            this.vssDirButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.vssDirButton.Image = ((System.Drawing.Image)(resources.GetObject("vssDirButton.Image")));
             this.vssDirButton.Location = new System.Drawing.Point(531, 17);
             this.vssDirButton.Name = "vssDirButton";
@@ -308,6 +309,7 @@
             // 
             // outDirButton
             // 
+            this.outDirButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.outDirButton.Image = ((System.Drawing.Image)(resources.GetObject("outDirButton.Image")));
             this.outDirButton.Location = new System.Drawing.Point(531, 17);
             this.outDirButton.Name = "outDirButton";

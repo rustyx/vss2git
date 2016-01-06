@@ -260,16 +260,20 @@ namespace Hpdi.Vss2Git
 
         public virtual string QuoteRelativePath(string path)
         {
+            return Quote(RelativePath(path));
+        }
+
+        public virtual string RelativePath(string path)
+        {
             if (path.StartsWith(outputDirectory))
             {
                 path = path.Substring(outputDirectory.Length);
                 if (path.StartsWith("\\") || path.StartsWith("/"))
-                {
                     path = path.Substring(1);
-                }
             }
-            return Quote(path);
+            return path;
         }
+
         /// <summary>
         /// Puts quotes around a command-line argument if it includes whitespace
         /// or quotes.
@@ -367,7 +371,7 @@ namespace Hpdi.Vss2Git
             return needsCommit;
         }
 
-        public void SetNeedsCommit()
+        public virtual void SetNeedsCommit()
         {
             needsCommit = true;
         }

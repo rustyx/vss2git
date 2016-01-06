@@ -18,9 +18,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using NGit;
+using NGit.Api;
+using NGit.Dircache;
 
 namespace Hpdi.Vss2Git
 {
@@ -31,11 +35,11 @@ namespace Hpdi.Vss2Git
     class GitWrapper : AbstractVcsWrapper
     {
         public static readonly string gitMetaDir = ".git";
-        public static readonly string gitExecutable = "git";
 
         private List<String> addQueue = new List<string>();
         private List<String> deleteQueue = new List<string>();
         private List<String> dirDeleteQueue = new List<string>();
+        private Git git;
 
         private Encoding commitEncoding = Encoding.UTF8;
 
@@ -54,15 +58,15 @@ namespace Hpdi.Vss2Git
 
         public GitWrapper(string outputDirectory, Logger logger, Encoding commitEncoding,
             bool forceAnnotatedTags)
-            : base(outputDirectory, logger, gitExecutable, gitMetaDir)
+            : base(outputDirectory, logger, null, gitMetaDir)
         {
             this.commitEncoding = commitEncoding;
             this.forceAnnotatedTags = forceAnnotatedTags;
         }
 
-        public override string QuoteRelativePath(string path)
+        public override string RelativePath(string path)
         {
-            return base.QuoteRelativePath(path).Replace('\\', '/'); // cygwin git compatibility
+            return base.RelativePath(path).Replace('\\', '/'); // cygwin git compatibility
         }
 
         public override void Init(bool resetRepo)
@@ -72,7 +76,7 @@ namespace Hpdi.Vss2Git
                 DeleteDirectory(GetOutputDirectory());
                 Thread.Sleep(0);
                 Directory.CreateDirectory(GetOutputDirectory());
-                VcsExec("init");
+                git = Git.Init().SetDirectory(GetOutputDirectory()).Call();
             }
         }
 
@@ -91,33 +95,20 @@ namespace Hpdi.Vss2Git
             return true;
         }
 
-        private bool DoAdd(string paths)
-        {
-            var startInfo = GetStartInfo("add --" + paths);
-
-            // add fails if there are no files (directories don't count)
-            bool result = ExecuteUnless(startInfo, "did not match any files");
-            if (result) SetNeedsCommit();
-            return result;
-        }
-
         private bool DoAdds()
         {
-            bool rc = false;
-            string paths = "";
+            if (addQueue.Count == 0)
+                return false;
+
+            var add = git.Add();
             foreach (string path in addQueue)
             {
-                if (paths.Length > 8000)
-                {
-                    rc |= DoAdd(paths);
-                    paths = "";
-                }
-                paths += " " + QuoteRelativePath(path);
+                add.AddFilepattern(RelativePath(path));
             }
             addQueue.Clear();
-            if (paths.Length > 1)
-                rc |= DoAdd(paths);
-            return rc;
+            add.Call();
+            base.SetNeedsCommit();
+            return true;
         }
 
         public override bool AddDir(string path)
@@ -134,42 +125,33 @@ namespace Hpdi.Vss2Git
 
         public override bool AddAll()
         {
-            var startInfo = GetStartInfo("add -A");
-
-            // add fails if there are no files (directories don't count)
-            bool result = ExecuteUnless(startInfo, "did not match any files");
-            if (result) SetNeedsCommit();
-            return result;
+            // git.Add().AddFilepattern(".").Call();
+            // base.SetNeedsCommit();
+            return true;
         }
 
         public override void RemoveFile(string path)
         {
             deleteQueue.Add(path);
-            SetNeedsCommit();
         }
 
-        private void DoDelete(string paths)
+        private bool DoDeletes()
         {
-            VcsExec("rm -r -f --" + paths); // is always recursive
-        }
+            if (deleteQueue.Count == 0)
+                return false;
 
-        private void DoDeletes()
-        {
-            string paths = "";
+            var delete = git.Rm();
             foreach (string path in deleteQueue)
             {
-                if (paths.Length > 8000)
-                {
-                    DoDelete(paths);
-                    paths = "";
-                }
-                paths += " " + QuoteRelativePath(path);
+                delete.AddFilepattern(RelativePath(path));
             }
             deleteQueue.Clear();
-            if (paths.Length > 1)
-                DoDelete(paths);
+            delete.Call();
             CleanupEmptyDirs();
+            base.SetNeedsCommit();
+            return true;
         }
+
         private void CleanupEmptyDirs()
         {
             foreach (string dir in dirDeleteQueue)
@@ -184,7 +166,6 @@ namespace Hpdi.Vss2Git
         {
             deleteQueue.Add(path); // is always recursive
             dirDeleteQueue.Add(path);
-            SetNeedsCommit();
         }
 
         public override void RemoveEmptyDir(string path)
@@ -194,8 +175,9 @@ namespace Hpdi.Vss2Git
 
         public override void Move(string sourcePath, string destPath)
         {
-            VcsExec("mv -- " + QuoteRelativePath(sourcePath) + " " + QuoteRelativePath(destPath));
-            SetNeedsCommit();
+            git.Rm().AddFilepattern(RelativePath(sourcePath)).Call();
+            git.Add().AddFilepattern(RelativePath(destPath)).Call();
+            base.SetNeedsCommit();
         }
 
         public override void MoveEmptyDir(string sourcePath, string destPath)
@@ -204,125 +186,65 @@ namespace Hpdi.Vss2Git
             Directory.Move(sourcePath, destPath);
         }
 
+        public override void SetNeedsCommit()
+        {
+            // Suppress explicit calls.
+        }
+
         public override bool DoCommit(string authorName, string authorEmail, string comment, DateTime localTime)
         {
-            TempFile commentFile;
+#if false
+            // enable this when you find empty commits or uncommitted changes; this will throw on that commit
 
-            var args = "commit";
-            AddComment(comment, ref args, out commentFile);
+            var status = git.Status().Call();
 
-            using (commentFile)
-            {
-                var startInfo = GetStartInfo(args);
-                startInfo.EnvironmentVariables["GIT_AUTHOR_NAME"] = authorName;
-                startInfo.EnvironmentVariables["GIT_AUTHOR_EMAIL"] = authorEmail;
-                startInfo.EnvironmentVariables["GIT_AUTHOR_DATE"] = GetUtcTimeString(localTime);
+            if (status.IsClean())
+                throw new InvalidOperationException("Expected changes");
 
-                // also setting the committer is supposedly useful for converting to Mercurial
-                startInfo.EnvironmentVariables["GIT_COMMITTER_NAME"] = authorName;
-                startInfo.EnvironmentVariables["GIT_COMMITTER_EMAIL"] = authorEmail;
-                startInfo.EnvironmentVariables["GIT_COMMITTER_DATE"] = GetUtcTimeString(localTime);
+            if (status.GetModified().Count > 0 || status.GetMissing().Count > 0 || status.GetUntracked().Count > 0 || status.GetConflicting().Count > 0)
+                throw new InvalidOperationException("Have modified, missing, untracked or conflicting files");
+#endif
 
-                // ignore empty commits, since they are non-trivial to detect
-                // (e.g. when renaming a directory)
-                return ExecuteUnless(startInfo, "nothing to commit");
-            }
+            var person = new PersonIdent(authorName, authorEmail, localTime, TimeZoneInfo.Local);
+
+            git.Commit()
+                .SetMessage(comment)
+                .SetAuthor(person)
+                .SetCommitter(person)
+                .Call();
+
+            return true;
         }
 
         public override void Tag(string name, string taggerName, string taggerEmail, string comment, DateTime localTime)
         {
-            TempFile commentFile;
-
-            var args = "tag";
-            // tools like Mercurial's git converter only import annotated tags
-            // remark: annotated tags are created with the git -a option,
-            // see e.g. http://learn.github.com/p/tagging.html
-            if (forceAnnotatedTags)
-            {
-                args += " -a";
-            }
-            AddComment(comment, ref args, out commentFile);
-
-            // tag names are not quoted because they cannot contain whitespace or quotes
-            args += " -- " + name;
-
-            using (commentFile)
-            {
-                var startInfo = GetStartInfo(args);
-                startInfo.EnvironmentVariables["GIT_COMMITTER_NAME"] = taggerName;
-                startInfo.EnvironmentVariables["GIT_COMMITTER_EMAIL"] = taggerEmail;
-                startInfo.EnvironmentVariables["GIT_COMMITTER_DATE"] = GetUtcTimeString(localTime);
-
-                ExecuteUnless(startInfo, null);
-            }
+            git.Tag()
+                .SetMessage(comment)
+                .SetTagger(new PersonIdent(taggerName, taggerEmail, localTime, TimeZoneInfo.Local))
+                .SetName(name)
+                .Call();
         }
 
         private void SetConfig(string name, string value)
         {
-            VcsExec("config " + name + " " + Quote(value));
+            int pos = name.IndexOf('.');
+            string section = name.Substring(0, pos);
+            name = name.Substring(pos + 1);
+            git.GetRepository().GetConfig().SetString(section, null, name, value);
         }
-
-        private void AddComment(string comment, ref string args, out TempFile tempFile)
-        {
-            tempFile = null;
-            if (!string.IsNullOrEmpty(comment))
-            {
-                // need to use a temporary file to specify the comment when not
-                // using the system default code page or it contains newlines
-                if (commitEncoding.CodePage != Encoding.Default.CodePage || comment.IndexOf('\n') >= 0)
-                {
-                    Logger.WriteLine("Generating temp file for comment: {0}", comment);
-                    tempFile = new TempFile();
-                    tempFile.Write(comment, commitEncoding);
-
-                    // temporary path might contain spaces (e.g. "Documents and Settings")
-                    args += " -F " + Quote(tempFile.Name);
-                }
-                else
-                {
-                    args += " -m " + Quote(comment);
-                }
-            }
-            else
-            {
-                args += " --allow-empty-message --no-edit -m \"\"";
-            }
-        }
-
-        private static string GetUtcTimeString(DateTime localTime)
-        {
-            // convert local time to UTC based on whether DST was in effect at the time
-            var utcTime = TimeZoneInfo.ConvertTimeToUtc(localTime);
-
-            // format time according to ISO 8601 (avoiding locale-dependent month/day names)
-            return utcTime.ToString("yyyy'-'MM'-'dd HH':'mm':'ss +0000");
-        }
-
-        private static Regex lastCommitTimestampRegex = new Regex("^Date:\\s*(\\S+)", RegexOptions.Multiline);
 
         public override DateTime? GetLastCommit()
         {
-            if (Directory.Exists(Path.Combine(GetOutputDirectory(), gitMetaDir)) && FindExecutable())
+            if (git == null)
+                return null;
+
+            foreach (var commit in git.Log().SetMaxCount(1).Call())
             {
-                try {
-                    var startInfo = GetStartInfo("log -n 1 --date=raw");
-                    string stdout, stderr;
-                    int exitCode = Execute(startInfo, out stdout, out stderr);
-                    if (exitCode == 0)
-                    {
-                        var m = lastCommitTimestampRegex.Match(stdout);
-                        if (m.Success)
-                        {
-                            long unixTimeStamp = long.Parse(m.Groups[1].Value);
-                            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-                            dt = dt.AddSeconds(unixTimeStamp).ToLocalTime();
-                            return dt;
-                        }
-                    }
-                } catch (Exception )
-                {
-                }
+                long unixTimeStamp = commit.CommitTime;
+                DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                return dt.AddSeconds(unixTimeStamp).ToLocalTime();
             }
+
             return null;
         }
 
