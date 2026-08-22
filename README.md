@@ -1,3 +1,64 @@
+# vss2git
+
+## Changes in this fork.
+
+### New features
+
+* **Continue Sync support (Git)** – an incremental re-run can resume after the last
+  converted commit; added UI, `VcsExporter` support, and last-commit detection in
+  `GitWrapper`. "Reset repo" and "continue after" are no longer mutually exclusive –
+  selecting reset simply ignores the continue-after timestamp instead of throwing.
+* **Command-line support** – `--settings=FILE`, `--go` (convert and exit) and
+  `--help`, using an embedded Mono.Options parser.
+* **User/e-mail mapping** – `emails.properties` entries may be written as
+  `user=Name <email>`; the e-mail domain defaults to empty (no more `@localhost`).
+* **Dump usernames** – a button that writes all usernames found in the VSS database
+  to a file, to seed the mapping.
+
+### Changeset grouping
+
+* Revisions from different users are no longer merged into one changeset.
+* A changeset is split on *any* rename after a delete, and on an add after a delete,
+  instead of only on directory renames.
+
+### Robustness
+
+* **Truncated VSS files** – record reading catches `EndOfBufferException` and reports
+  it as `RecordTruncatedException`, so a damaged item file degrades to a warning
+  instead of an unhandled error.
+* **Missing VSS files** – project/file recursion catches `IOException` per level and
+  logs a warning, allowing the conversion to continue past unreadable items.
+  `VssUtil` got a logger for this.
+* VSS data files are opened with `FileShare.ReadWrite`, allowing conversion while the
+  database is in use.
+* Outstanding queued adds/deletes are flushed when a changeset replay fails, so the
+  error path doesn't corrupt the next commit.
+
+### Performance
+
+* Git child-process output is read via async `OutputDataReceived` /
+  `ErrorDataReceived` handlers instead of polling, removing the fixed per-command
+  delay.
+* Adds and deletes are queued and issued in batches rather than one `git` invocation
+  per path.
+
+### Bug fixes
+
+* `git tag` is invoked with `-f`, so re-applying an existing VSS label no longer
+  fails the conversion.
+* Cygwin git compatibility – relative paths are quoted with forward slashes.
+* Deletes use `git rm -f` (and `-r` always, as VSS deletes are recursive), fixing
+  "staged changes" failures when add/rename/delete land in one changeset.
+* Empty directories left behind after a recursive delete are removed from the
+  working tree.
+* `core.ignorecase=true` is set on the created repo, fixing repeated add/delete of a
+  folder differing only in case.
+* Empty VSS commit messages are handled properly (from Remigius Stalder).
+* Repeated renames to the same target name no longer fail the move
+  (from Vlad Vissoultchev, PR #2).
+* Added `.gitignore`; normalized line endings in `RecordException` /
+  `RecordTruncatedException`.
+
 ## What is it? ##
 
 The Vss2Git project contains several components:
